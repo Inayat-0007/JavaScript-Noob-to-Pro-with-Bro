@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Variable Showcase</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Data Type Operations</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Variable Importance Demo</h1>
-        <div class="input-section">
-            <label for="input1">Enter First Value:</label>
-            <input type="text" id="input1" placeholder="e.g., 5 or 'hello'">
-            <label for="input2">Enter Second Value:</label>
-            <input type="text" id="input2" placeholder="e.g., 10 or 'world'">
-            <button onclick="runDemo()">Run Demo</button>
+        <div class="card">
+            <h2>🔢 Data Type Operations 🔡</h2>
+            <div class="input-group">
+                <label for="input1">Input 1</label>
+                <input type="text" id="input1" placeholder="Enter first value">
+            </div>
+            <div class="input-group">
+                <label for="input2">Input 2</label>
+                <input type="text" id="input2" placeholder="Enter second value">
+            </div>
+            <div id="error-container" class="error hidden"></div>
+            <div class="buttons">
+                <button onclick="handleOperation()">🚀 Perform Operations</button>
+                <button class="outline" onclick="handleReset()">🔄 Reset</button>
+            </div>
+            <div id="results-container"></div>
         </div>
-        <div class="output-section">
-            <h2>Results</h2>
-            <div id="output"></div>
-        </div>
+        <footer>
+            <p>📌 Project Created by <strong>Inayat Hussain</strong></p>
+        </footer>
     </div>
-    <footer>
-        <p>This project is developed by Inayat Hussain, 2025</p>
-    </footer>
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
 </body>
 </html>

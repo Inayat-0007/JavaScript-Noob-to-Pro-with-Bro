@@ -1,78 +1,64 @@
-function runDemo() {
-    let output = document.getElementById('output');
-    output.innerHTML = ''; // Clear previous output
+function handleOperation() {
+    const input1 = document.getElementById("input1").value.trim();
+    const input2 = document.getElementById("input2").value.trim();
+    const resultsContainer = document.getElementById("results-container");
+    const errorContainer = document.getElementById("error-container");
 
-    // Only two variables allowed
-    let var1 = document.getElementById('input1').value;
-    let var2 = document.getElementById('input2').value;
+    resultsContainer.innerHTML = "";
+    errorContainer.classList.add("hidden");
 
-    // Handle empty input
-    if (!var1 || !var2) {
-        output.innerHTML = "Error: Please provide both inputs.\nReason: Variables need values to demonstrate their importance.";
+    if (!input1 || !input2) {
+        errorContainer.textContent = "❌ Both input fields are required";
+        errorContainer.classList.remove("hidden");
         return;
     }
 
-    // Test 1: Hoisting (using var inside a function)
-    output.innerHTML += "--- Test Hoisting ---\n";
+    let results = [];
+
     try {
-        function hoistTest() {
-            output.innerHTML += `Before declaration: ${typeof hoistedVar}\n`; // undefined due to hoisting
-            var hoistedVar = var1;
-            output.innerHTML += `After declaration: ${hoistedVar}\n`;
+        const num1 = Number(input1);
+        const num2 = Number(input2);
+        if (!isNaN(num1) && !isNaN(num2)) {
+            results.push(`➕ Addition: ${num1} + ${num2} = ${num1 + num2}`);
+            results.push(`➖ Subtraction: ${num1} - ${num2} = ${num1 - num2}`);
+            results.push(`✖️ Multiplication: ${num1} * ${num2} = ${num1 * num2}`);
+            results.push(`➗ Division: ${num1} / ${num2} = ${(num1 / num2).toFixed(2)}`);
+        } else {
+            results.push("⚠️ Cannot perform number operations with these inputs");
         }
-        hoistTest();
-        output.innerHTML += "Reason: 'var' is hoisted to the top of its scope, initialized as undefined.\n\n";
-    } catch (e) {
-        output.innerHTML += `Error: ${e.message}\nReason: Unexpected issue in hoisting test.\n\n`;
+    } catch {
+        results.push("⚠️ Error in number operations");
     }
 
-    // Test 2: Scope (block scope with let)
-    output.innerHTML += "--- Test Scope ---\n";
+    results.push(`🔗 String Concatenation: "${input1}" + "${input2}" = "${input1 + input2}"`);
+    results.push(`📏 String Length: "${input1}" = ${input1.length}, "${input2}" = ${input2.length}`);
+
     try {
-        if (true) {
-            let scopedVar = var1;
-            output.innerHTML += `Inside block: ${scopedVar}\n`;
-        }
-        output.innerHTML += `Outside block: ${typeof scopedVar === 'undefined' ? 'undefined' : scopedVar}\n`;
-        output.innerHTML += "Reason: 'let' is block-scoped, so it's not accessible outside the block.\n\n";
-    } catch (e) {
-        output.innerHTML += `Error: ${e.message}\nReason: Unexpected issue in scope test.\n\n`;
+        const obj = { prop1: input1, prop2: input2 };
+        results.push(`🛠 Object: ${JSON.stringify(obj)}`);
+    } catch {
+        results.push("⚠️ Could not create object");
     }
 
-    // Test 3: Type Coercion
-    output.innerHTML += "--- Test Type Coercion ---\n";
     try {
-        let result = var1 + var2; // Implicit coercion
-        output.innerHTML += `Result of var1 + var2: ${result}\n`;
-        output.innerHTML += `Type of result: ${typeof result}\n`;
-        output.innerHTML += "Reason: JavaScript coerces types (e.g., number + string becomes string concatenation).\n\n";
-    } catch (e) {
-        output.innerHTML += `Error: ${e.message}\nReason: Unexpected issue in type coercion test.\n\n`;
+        const arr = [input1, input2];
+        results.push(`📦 Array: ${JSON.stringify(arr)}`);
+        results.push(`📏 Array Length: ${arr.length}`);
+    } catch {
+        results.push("⚠️ Could not create array");
     }
 
-    // Test 4: Mutability (using var2 as an object)
-    output.innerHTML += "--- Test Mutability ---\n";
-    try {
-        const obj = { value: var2 };
-        output.innerHTML += `Original object value: ${obj.value}\n`;
-        obj.value = "mutated"; // Allowed despite const
-        output.innerHTML += `Mutated object value: ${obj.value}\n`;
-        output.innerHTML += "Reason: 'const' prevents reassignment of the variable, but object properties can still change.\n\n";
-    } catch (e) {
-        output.innerHTML += `Error: ${e.message}\nReason: Unexpected issue in mutability test.\n\n`;
-    }
+    results.forEach(result => {
+        const resultDiv = document.createElement("div");
+        resultDiv.classList.add("result-card");
+        resultDiv.textContent = result;
+        resultsContainer.appendChild(resultDiv);
+    });
+}
 
-    // Test 5: Temporal Dead Zone (TDZ)
-    output.innerHTML += "--- Test TDZ ---\n";
-    try {
-        function tdzTest() {
-            output.innerHTML += `Before declaration: ${typeof tdzVar === 'undefined' ? 'in TDZ' : tdzVar}\n`;
-            let tdzVar = var1; // TDZ ends here
-            output.innerHTML += `After declaration: ${tdzVar}\n`;
-        }
-        tdzTest();
-        output.innerHTML += "Reason: 'let' variables are hoisted but not initialized until their declaration (TDZ).\n";
-    } catch (e) {
-        output.innerHTML += `Error: ${e.message}\nReason: TDZ prevents access before declaration.\n`;
-    }
+function handleReset() {
+    document.getElementById("input1").value = "";
+    document.getElementById("input2").value = "";
+    document.getElementById("results-container").innerHTML = "";
+    document.getElementById("error-container").classList.add("hidden");
 }
