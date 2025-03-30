@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Type Operations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #4203a9, #90bafc);
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .input-group {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #4203a9;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4203a9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #5f2dd1;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        #result.success {
+            background: #e6ffe6;
+            border: 2px solid #00cc00;
+            color: #006600;
+            display: block;
+        }
+
+        #result.error {
+            background: #ffe6e6;
+            border: 2px solid #ff3333;
+            color: #cc0000;
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Type Operations</h1>
+        <div class="input-group">
+            <label for="input1">First Input</label>
+            <input type="text" id="input1" placeholder="Enter first value">
+        </div>
+        <div class="input-group">
+            <label for="input2">Second Input</label>
+            <input type="text" id="input2" placeholder="Enter second value">
+        </div>
+        <button onclick="processInputs()">Process Inputs</button>
+        <div id="result"></div>
+        <footer>This project is created by Inayat Hussain, 2025</footer>
+    </div>
+
+    <script>
+        function processInputs() {
+            const input1 = document.getElementById('input1').value;
+            const input2 = document.getElementById('input2').value;
+            const resultDiv = document.getElementById('result');
+
+            // Reset result div
+            resultDiv.className = '';
+            resultDiv.innerHTML = '';
+
+            // Error handling for empty inputs
+            if (!input1 || !input2) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = 'Error: Please provide both inputs!';
+                return;
+            }
+
+            try {
+                let output = '';
+                
+                // Number operations
+                const num1 = Number(input1);
+                const num2 = Number(input2);
+                if (!isNaN(num1) && !isNaN(num2)) {
+                    output += `<p>Number Operation: ${num1} + ${num2} = ${num1 + num2}</p>`;
+                }
+
+                // String operations
+                output += `<p>String Operation: "${input1}" + "${input2}" = "${input1 + input2}"</p>`;
+
+                // Boolean conversion
+                const bool1 = Boolean(input1);
+                const bool2 = Boolean(input2);
+                output += `<p>Boolean Conversion: "${input1}" → ${bool1}, "${input2}" → ${bool2}</p>`;
+
+                // Object creation
+                const obj = { value1: input1, value2: input2 };
+                output += `<p>Object Creation: { value1: "${input1}", value2: "${input2}" }</p>`;
+
+                // Array creation
+                const arr = [input1, input2];
+                output += `<p>Array Creation: [ "${input1}", "${input2}" ]</p>`;
+
+                // Display results
+                resultDiv.className = 'success';
+                resultDiv.innerHTML = output;
+
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
