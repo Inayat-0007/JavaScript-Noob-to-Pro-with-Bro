@@ -4,4 +4,4 @@ JavaScript Noob to Pro with Bro
 https://inayat-variable-in-js-demo.netlify.app/
 
 #data types
-https://inayat-javascript-datatypes.netlify.app/
+[https://inayat-javascript-datatypes.netlify.app/](https://javascript-datatypes-inayat.netlify.app/)
